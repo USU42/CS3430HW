@@ -1,0 +1,3 @@
+https://rosettacode.org/wiki/Reduced_row_echelon_form#Python
+http://stattrek.com/matrix-algebra/echelon-transform.aspx
+

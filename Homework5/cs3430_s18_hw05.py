@@ -44,45 +44,73 @@ def solveLinSys(m):
    ## your code
    reduceToREF(m)
    numRows = len(m)
-   for x in range(numRows):
-       if m[x] == 0:
-           return False
+   numCol = len(m[0])
+   rowAns = 0
+   colAns = 0
+   for y in range(numRows):
+       for x in m[y]:
+           if x == 0:
+               rowAns += 1
+               if rowAns >= numCol:
+                   return False
+       rowAns = 0
+
+   for y in range(numCol - 1):
+       for z in range(numRows):
+            if m[z][y] == 0:
+                colAns += 1
+                if colAns >= numRows:
+                    return False
+       colAns = 0
 
    return True
    pass
 
 def invertMat(m):
     ## your code
+    numRows = len(m)
+    numCol = len(m[0])
+
+    
+
     pass
 
 
 m = np.array([
-[2, -4, 2, -2],
-[2, -4, 3, -4],
-[4, -8, 3, -2],
-[0, 0, -1, 2]
+[2, -1, 3, 4],
+[3, 0, 2, 5],
+[-2, 1, 4, 6]
 ],
 dtype=float)
 
+print(solveLinSys(m))
 print(m)
 
-reduceToREF(m)
 
-print("\n", m, "\n")
 
-m2 = np.array([
-[1, 6, 3, 4],
-[1, 2, 1, 1],
-[-1, 2, 1, 2],
-],
-dtype=float)
 
-print(m2, "\n")
 
-reduceToREF(m2)
 
-print(m2, "\n")
 
+# print(m)
+#
+# reduceToREF(m)
+#
+# print("\n", m, "\n")
+#
+# m2 = np.array([
+# [1, 6, 3, 4],
+# [1, 2, 1, 1],
+# [-1, 2, 1, 2],
+# ],
+# dtype=float)
+#
+# print(m2, "\n")
+#
+# reduceToREF(m2)
+#
+# print(m2, "\n")
+#
 
 
 
