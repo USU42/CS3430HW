@@ -6,6 +6,9 @@
 ## A02093326
 ##########################################
 
+
+from __future__ import division
+import __future__
 import numpy as np
 
 def reduceToREF(m):
@@ -38,7 +41,6 @@ def reduceToREF(m):
                 m[num] = m[num] - temp
         curCol += 1
 
-    pass
 
 def solveLinSys(m):
    ## your code
@@ -64,32 +66,50 @@ def solveLinSys(m):
        colAns = 0
 
    return True
-   pass
+
 
 def invertMat(m):
     ## your code
     numRows = len(m)
     numCol = len(m[0])
+    invertm = m.copy()
+    for x in range(numRows):
+        for y in range(numCol):
+            if x == y:
+                invertm[x][y] = 1
+            else:
+                invertm[x][y] = 0
+    tempm = np.column_stack((m, invertm))
+    reduceToREF(tempm)
+    return tempm[:,np.s_[2:]]
 
-    
-
-    pass
 
 
 m = np.array([
-[2, -1, 3, 4],
-[3, 0, 2, 5],
-[-2, 1, 4, 6]
-],
-dtype=float)
+[1, 2],
+[3, 7],
+], dtype=float)
 
-print(solveLinSys(m))
 print(m)
 
+m = invertMat(m)
+
+print("\n", m)
 
 
 
 
+
+#
+# m = np.array([
+# [2, -1, 3, 4],
+# [3, 0, 2, 5],
+# [-2, 1, 4, 6]
+# ],
+# dtype=float)
+#
+# print(solveLinSys(m))
+# print(m)
 
 
 # print(m)
@@ -118,33 +138,3 @@ print(m)
 
 
 
-
-
-# for x in range(len(m)):
-#     m[0][x] *= (1 / 2)
-#
-# for x in range(len(m)):
-#     m[1][x] += -2 * m[0][x]
-#     m[2][x] += -4 * m[0][x]
-#
-# for x in range(len(m)):
-#     m[2][x] += m[1][x]
-#     m[3][x] += m[1][x]
-#
-# for x in range(len(m)):
-#     m[0][x] += -1 * m[1][x]
-#
-# for x in m:
-
-
-# numRows = m
-# numCol = m[0]
-# for i in range(len(numRows)):
-#
-#     if m[i][i] is not 0:
-#         for x in range(len(numCol)):
-#             m[i][x] = m[i][x]/m[i][i]
-#     for y in range(i+1, len(numRows)):
-#         if m[y][0] is not 0:
-#             for z in range(len(numCol)):
-#                 m[i+1][z] = (-m[i+1][z] * m[i][z]) + m[i+1][z]
