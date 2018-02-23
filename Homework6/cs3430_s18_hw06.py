@@ -19,8 +19,6 @@ def det(mat):
     ## your code
     return round(np.linalg.det(mat))
 
-
-
 def cofactor(mat, i, j):
     ## your code
     ans = det(minorMat(mat, i, j))
@@ -29,36 +27,51 @@ def cofactor(mat, i, j):
 
 def expandByRowMinors(mat, r):
     ## your code
-    ans1 = 0
-    ans2 = 0
-    for x in range(len(mat)):
-        ans1 = minorMat(mat, x, r)
-        ans2 = cofactor(mat,x,r)
-    return (ans1, ans2)
+    ans = 0
+    for x in range(mat.shape[0]): #columns
+        ans += cofactor(mat, r, x) * mat[r][x]
+    return ans
 
 def expandByColMinors(mat, c):
     ## your code
-    ans1 = 0
-    ans2 = 0
-    for x in range(len(mat)):
-        ans1 = minorMat(mat, c, x)
-        ans2 = cofactor(mat, c, x)
-    return (ans1, ans2)
+    ans = 0
+    for x in range(len(mat)): #rows
+        ans += cofactor(mat, x, c) * mat[x][c]
+    return ans
 
 def cofactorMat(mat):
     ## your code
-    pass
+    cofacMat = mat.copy()
+    for i in range(mat.shape[0]):
+        for j in range(mat.shape[1]):
+            cofacMat[i][j] = cofactor(mat, i, j)
+    return cofacMat
 
 def adjointMat(mat):
     ## your code
-    pass
+    adjoinMat = mat.copy()
+    for i in range(mat.shape[0]):
+        for j in range(mat.shape[1]):
+            adjoinMat[i][j] = cofactor(mat, j, i)
+    return adjoinMat
 
 def inverseMat(mat):
     ## your code
-    pass
+    invDet = 1/det(mat)
+    adjMat = adjointMat(mat)
+    invMat = mat.copy()
+    for i in range(mat.shape[0]):
+        for j in range(mat.shape[1]):
+            invMat[i][j] = invDet * adjMat[i][j]
+    return invMat
 
 def cramer(A, b):
     ## your code
     pass
     
-    
+def checkInverse(A):
+    D = det(A)
+    print(D)
+    if D != 0.0:
+        print(inverseMat(A))
+        print(np.dot(A, inverseMat(A)))
