@@ -23,8 +23,8 @@
       <file leaf-file-name="cs3430_s18_hw06.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cs3430_s18_hw06.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
+            <state relative-caret-position="661">
+              <caret line="51" column="20" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -40,7 +40,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="417" />
+    <option name="x" value="452" />
     <option name="y" value="23" />
     <option name="width" value="1400" />
     <option name="height" value="784" />
@@ -113,7 +113,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="417" y="23" width="1400" height="784" extended-state="0" />
+    <frame x="452" y="23" width="1400" height="784" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24945612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -153,8 +153,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/cs3430_s18_hw06.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
+        <state relative-caret-position="661">
+          <caret line="51" column="20" selection-start-line="51" selection-start-column="20" selection-end-line="51" selection-end-column="20" />
           <folding />
         </state>
       </provider>
