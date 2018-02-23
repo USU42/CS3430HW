@@ -67,7 +67,14 @@ def inverseMat(mat):
 
 def cramer(A, b):
     ## your code
-    pass
+    determinate = det(A)
+    ansList = []
+    for x in range(A.shape[0]):
+        tempMat = A.copy()
+        for y in range(len(b)):
+            tempMat[y][x] = b[y]
+        ansList.append(det(tempMat)/determinate)
+    return ansList
     
 def checkInverse(A):
     D = det(A)
