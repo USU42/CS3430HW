@@ -51,31 +51,67 @@ def build_838_nn():
 
 def create_nn_data():
     ## your code
-    binaryNums = []
-    binaryAns = []
+    binaryNums = np.zeros(shape=(129, 8))
+    binaryAns = np.zeros(shape=(129, 2))
     for i in range(129):
         #create the binary number of i
         binNum = '{0:08b}'.format(i)
-        tempList = list()
-        for x in binNum:
-            tempList.append(int(x))
-        binaryNums.append(tempList)
-        print(tempList)
+        # tempList = list()
+        for x in range(len(binNum)):
+            # tempList.append(int(x))
+            binaryNums[i][x] = int(binNum[x])
+        # binaryNums.append(tempList)
+        # print(tempList)
 
         #put add 10 and 01 to binaryAns depending if i is even or odd
         if(i % 2 is 0):
-            binaryAns.append([1, 0])
+            binaryAns[i] = [1, 0]
         else:
-            binaryAns.append([0, 1])
+            binaryAns[i] = [0, 1]
 
     return (binaryNums, binaryAns)
 
 def train_4_layer_nn(numIters, X, y, build):
     ## your code
-    pass
+    W1, W2, W3 = build()
+    for i in range(numIters):
+        Z2 = np.dot(X, W1)
+        a2 = sigmoid(Z2)
+
+        Z3 = np.dot(a2, W2)
+        a3 = sigmoid(Z3)
+
+        Z4 = np.dot(a3, W3)
+        yHat = sigmoid(Z4)
+
+        yHat_error = y - yHat
+        yHat_delta = yHat_error * sigmoid(yHat, deriv=True)
+
+        a3_error = yHat_delta.dot(W3.T)
+        a3_delta = a3_error * sigmoid(a3, deriv=True)
+
+        a2_error = a3_delta.dot(W2.T)
+        a2_delta = a2_error * sigmoid(a2, deriv=True)
+
+        W3 += a3.T.dot(yHat_delta)
+        W2 += a2.T.dot(a3_delta)
+        W1 += X.T.dot(a2_delta)
+    return W1, W2, W3
 
 def fit_4_layer_nn(x, wmats, thresh=0.4, thresh_flag=False):
     ## your code
+    a2 = sigmoid(np.dot(x, wmats[0]))
+    a3 = sigmoid(np.dot(a2, wmats[1]))
+    yHat = sigmoid(np.dot(a3, wmats[4]))
+    if thresh_flag == True:
+        for y in np.nditer(yHat, op_flags=['readwrite']):
+            if y > thresh:
+                y[...] = 1
+            else:
+                y[...] = 0
+        return yHat.astype(int)
+    else:
+        return yHat
     pass
 
 def is_even_nn(n, wmats):
@@ -124,10 +160,19 @@ def fit_3_layer_nn(x, W, thresh=0.4, thresh_flag=True):
         return yHat
 
 
+
+
+
+
+
+
+
+
+numIters = 5
 X, y = create_nn_data()
-print(X[:10])
-print()
-print(y[:10])
+
+even_odd_wmats = train_4_layer_nn(numIters, X, y, build_even_odd_nn)
+print(len(even_odd_wmats))
 
 # def matrix(row, col):
 #     outMat = []
