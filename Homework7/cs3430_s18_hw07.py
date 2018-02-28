@@ -6,14 +6,17 @@
 # A02093326
 #####################################
 
+from __future__ import division
+import __future__
 import numpy as np
 import random
 import pickle as cPickle
 
 #from cs3430_s18_hw07_data import *
 
-
-numIters = 10000
+#10,000 gets it right around 6 out of 7 times and is faster
+#50,000 gets it right most of the time, but takes a lot longer
+numIters = 50000
 
 
 X_GATE = np.array([[0, 0],
