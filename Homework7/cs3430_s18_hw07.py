@@ -13,6 +13,9 @@ import pickle as cPickle
 #from cs3430_s18_hw07_data import *
 
 
+numIters = 10000
+
+
 X_GATE = np.array([[0, 0],
 [1, 0],
 [0, 1],
@@ -27,6 +30,7 @@ y_or = np.array([[0],
 [1],
 [1],
 [1]])
+
 
 # sigmoid function
 def sigmoid(x, deriv=False):
@@ -56,12 +60,8 @@ def create_nn_data():
     for i in range(129):
         #create the binary number of i
         binNum = '{0:08b}'.format(i)
-        # tempList = list()
         for x in range(len(binNum)):
-            # tempList.append(int(x))
             binaryNums[i][x] = int(binNum[x])
-        # binaryNums.append(tempList)
-        # print(tempList)
 
         #put add 10 and 01 to binaryAns depending if i is even or odd
         if(i % 2 is 0):
@@ -102,7 +102,7 @@ def fit_4_layer_nn(x, wmats, thresh=0.4, thresh_flag=False):
     ## your code
     a2 = sigmoid(np.dot(x, wmats[0]))
     a3 = sigmoid(np.dot(a2, wmats[1]))
-    yHat = sigmoid(np.dot(a3, wmats[4]))
+    yHat = sigmoid(np.dot(a3, wmats[2]))
     if thresh_flag == True:
         for y in np.nditer(yHat, op_flags=['readwrite']):
             if y > thresh:
@@ -116,14 +116,45 @@ def fit_4_layer_nn(x, wmats, thresh=0.4, thresh_flag=False):
 
 def is_even_nn(n, wmats):
     ## your code
-    pass
+    binaryNum = np.zeros(shape=(1, 8))
+    binNum = '{0:08b}'.format(n)
+    for x in range(len(binNum)):
+        binaryNum[0][x] = int(binNum[x])
+    fit = fit_4_layer_nn(binaryNum, wmats, thresh_flag=True)
+    print(fit)
+    print(fit[0])
+    print(fit[0][0])
+    if (fit[0][0] == 1) and (fit[0][1] == 0):
+        return True
+    elif (fit[0][0] == 0) and (fit[0][1] == 1):
+        return False
+    else:
+        print("Unable to tell if number is even or odd")
+
 
 def eval_even_odd_nn(wmats):
     ## your code
-    pass
+    numRight = 0
+    for i in range(129):
+        # create the binary number of i
+        binNum = '{0:08b}'.format(i)
+        binaryArray = np.zeros(shape=(1, 8))
+        for x in range(len(binNum)):
+            binaryArray[0][x] = int(binNum[x])
+        fit = fit_4_layer_nn(binaryArray, wmats, thresh_flag=True)
+
+        # checks if i is an even or odd number and if it matches what the ANN said
+        if (i % 2 is 0):
+            if (fit[0][0] == 1) and (fit[0][1] == 0):
+                numRight += 1
+        else:
+            if (fit[0][0] == 0) and (fit[0][1] == 1):
+                numRight += 1
+    percentage = numRight/129
+    return percentage
 
 def build_even_odd_nn():
-    input = (8, 5, 3, 2)
+    input = (8, 5, 7, 2)
     return build_nn_wmats(input)
 
 def train_3_layer_nn(numIters, X, y, build):
@@ -160,19 +191,13 @@ def fit_3_layer_nn(x, W, thresh=0.4, thresh_flag=True):
         return yHat
 
 
-
-
-
-
-
-
-
-
-numIters = 5
 X, y = create_nn_data()
 
 even_odd_wmats = train_4_layer_nn(numIters, X, y, build_even_odd_nn)
-print(len(even_odd_wmats))
+# print(fit_4_layer_nn(X[3], even_odd_wmats))
+# print(fit_4_layer_nn(X[3], even_odd_wmats, thresh_flag=True))
+# print(is_even_nn(14, even_odd_wmats))
+print(eval_even_odd_nn(even_odd_wmats))
 
 # def matrix(row, col):
 #     outMat = []
