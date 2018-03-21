@@ -2,9 +2,15 @@
 
 #########################################
 # module: img_ann.py
-# YOUR NAME
-# YOUR A-NUMBER
+# Kelsye Anderson
+# A02093326
 #########################################
+
+'''
+websites used
+https://wiki.python.org/moin/UsingPickle
+'''
+
 
 
 import numpy as np
@@ -100,11 +106,13 @@ def find_best_nn(lower_num_iters, upper_num_iters, step, train_fun,
           
 def pickle_nn(fp, wmats):
     ## your code
-    pass
+    with open(fp, "wb") as file:
+        pickle.dump(wmats, file)
 
 def unpickle_nn(fp):
     ## your code
-    pass
+    pickle.load(open(fp, "wb"))
+
 
 
 

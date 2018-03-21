@@ -47,10 +47,10 @@
       <file leaf-file-name="img_ann.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/img_ann.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="74" column="17" selection-start-line="74" selection-start-column="17" selection-end-line="74" selection-end-column="17" />
+            <state relative-caret-position="266">
+              <caret line="113" column="27" selection-start-line="113" selection-start-column="27" selection-end-line="113" selection-end-column="27" />
               <folding>
-                <element signature="e#154#172#0" expanded="true" />
+                <element signature="e#221#239#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,7 +68,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="517" />
+    <option name="x" value="337" />
     <option name="y" value="23" />
     <option name="width" value="1400" />
     <option name="height" value="784" />
@@ -342,7 +342,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="517" y="23" width="1400" height="784" extended-state="0" />
+    <frame x="337" y="23" width="1400" height="784" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24945612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -402,10 +402,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/img_ann.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="74" column="17" selection-start-line="74" selection-start-column="17" selection-end-line="74" selection-end-column="17" />
+        <state relative-caret-position="266">
+          <caret line="113" column="27" selection-start-line="113" selection-start-column="27" selection-end-line="113" selection-end-column="27" />
           <folding>
-            <element signature="e#154#172#0" expanded="true" />
+            <element signature="e#221#239#0" expanded="true" />
           </folding>
         </state>
       </provider>
