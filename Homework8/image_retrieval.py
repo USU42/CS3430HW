@@ -177,44 +177,40 @@ GSL_INDEX = None
 # bgr index bgr_index and return the top one.
 def compute_bgr_sim(bgr, bgr_index, topn=1):
   # your code
-  max = 0
-  index = 0
   topList = []
   totalList = []
   for x in bgr_index:
       totalList.append(bgr_img_sim(bgr, bgr_index[x]))
-  totalList.sort(key = lambda x : x[0], reverse=True)
-  for x in topn:
+  totalList.sort(reverse= True)
+  for x in range(topn):
       topList.append(totalList[x])
+  return topList
 
 # compute the similarities between the hsv
 # index vector and all the vectors in the unpickled
 # hsv index hsv_index and return the top one.
 def compute_hsv_sim(hsv, hsv_index, topn=1):
   # your code
-  max = 0
-  index = 0
   topList = []
   totalList = []
   for x in hsv_index:
       totalList.append(hsv_img_sim(hsv, hsv_index[x]))
-      totalList.sort(key=lambda x: x[0], reverse=True)
-  for x in topn:
+  totalList.sort(reverse=True)
+  for x in range(topn):
       topList.append(totalList[x])
+  return topList
 
 # compute the similarities between the gsl
 # index vector and all the vectors in the unpickled
 # gsl index gls_index and return the top one.
 def compute_gsl_sim(gsl, gsl_index, topn=1):
   # your code
-  max = 0
-  index = 0
   topList = []
   totalList = []
   for x in gsl_index:
       totalList.append(gsl_img_sim(gsl, gsl_index[x]))
-  totalList.sort(key=lambda x: x[0], reverse=True)
-  for x in topn:
+  totalList.sort(reverse=True)
+  for x in range(topn):
       topList.append(totalList[x])
 
   return topList
