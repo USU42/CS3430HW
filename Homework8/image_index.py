@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from __future__ import division
+import __future__
 import argparse
 import cv2
 import sys
@@ -7,8 +9,7 @@ import os
 import re
 import numpy as np
 import fnmatch
-import _pickle as pickle
-#import cPickle as pickle
+import cPickle as pickle
 
 ########################
 # module: image_index.py
