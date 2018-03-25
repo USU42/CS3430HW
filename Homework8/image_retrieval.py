@@ -93,8 +93,7 @@ def gsl_img_sim(img_index_vec1, img_index_vec2):
       grayBot += img_index_vec1[x] ** 2
       secondGbot += img_index_vec2[x] ** 2
   graySim = grayTop / (((grayBot) ** (1 / 2)) * ((secondGbot) ** (1 / 2)))
-  avgSim = graySim / 3
-  return avgSim
+  return graySim
 
 # index the input image
 def index_img(imgp):
@@ -180,8 +179,8 @@ def compute_bgr_sim(bgr, bgr_index, topn=1):
   topList = []
   totalList = []
   for x in bgr_index:
-      totalList.append(bgr_img_sim(bgr, bgr_index[x]))
-  totalList.sort(reverse= True)
+      totalList.append((x, bgr_img_sim(bgr, bgr_index[x])))
+  totalList.sort(reverse=True, key = lambda x: x[1])
   for x in range(topn):
       topList.append(totalList[x])
   return topList
@@ -194,8 +193,9 @@ def compute_hsv_sim(hsv, hsv_index, topn=1):
   topList = []
   totalList = []
   for x in hsv_index:
-      totalList.append(hsv_img_sim(hsv, hsv_index[x]))
-  totalList.sort(reverse=True)
+      totalList.append((x, hsv_img_sim(hsv, hsv_index[x])))
+  totalList.sort(reverse=True, key = lambda x: x[1])
+  print(totalList)
   for x in range(topn):
       topList.append(totalList[x])
   return topList
@@ -208,11 +208,10 @@ def compute_gsl_sim(gsl, gsl_index, topn=1):
   topList = []
   totalList = []
   for x in gsl_index:
-      totalList.append(gsl_img_sim(gsl, gsl_index[x]))
-  totalList.sort(reverse=True)
+      totalList.append((x, gsl_img_sim(gsl, gsl_index[x])))
+  totalList.sort(reverse=True, key = lambda x: x[1])
   for x in range(topn):
       topList.append(totalList[x])
-
   return topList
 
 # unpickle, match, and display
@@ -242,7 +241,7 @@ if __name__ == '__main__':
   cv2.imshow('BGR', bgr)
   cv2.imshow('HSV', hsv)
   cv2.imshow('GSL', gsl)
-  cv2.waitKey()
+  cv2.waitKey(30000)
   del orig
   del bgr
   del hsv
