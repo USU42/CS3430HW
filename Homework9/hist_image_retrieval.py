@@ -44,23 +44,35 @@ HIST_INDEX = None
 
 def hist_correl_sim(norm_hist1, norm_hist2):
   # compute correlation similarity b/w normalized and flattened histograms
+  correl = int
+  correl = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_CORREL)
   pass
 
 def hist_chisqr_sim(norm_hist1, norm_hist2):
   # compute chi square similarity b/w normalized and flattened histograms
+  chisqr = int
+  chisqr = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_CHISQR)
   pass
 
 def hist_intersect_sim(norm_hist1, norm_hist2):
   # compute intersection similarity b/w normalized and flattened histograms
+  intersect = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_INTERSECT)
   pass
 
 def hist_bhatta_sim(norm_hist1, norm_hist2):
   # compute bhattacharyya similarity b/w normalized and flattened histograms
+  bhatta = cv2.compareHist(norm_hist1, norm_hist2, cv2.HISTCMP_BHATTACHARYYA)
   pass
 
 # compute the topn matches using the value saved in hist_sim above.
 def compute_hist_sim(inhist_vec, hist_index, topn=3):
   # your code
+  if hist_index is 'correl':
+    for imgp in hist_index:
+      hist_correl_sim(inhist_vec[])
+  elif hist_index is 'chisqr':
+  elif hist_index is 'intersect':
+  elif hist_index is 'bhatta':
   pass
 
 def show_images(input_image, match_list):
