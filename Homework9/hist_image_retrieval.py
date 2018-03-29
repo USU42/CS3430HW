@@ -69,7 +69,7 @@ def compute_hist_sim(inhist_vec, hist_index, topn=3):
   # your code
   if hist_index is 'correl':
     for imgp in hist_index:
-      hist_correl_sim(inhist_vec[])
+      hist_correl_sim(inhis)
   elif hist_index is 'chisqr':
   elif hist_index is 'intersect':
   elif hist_index is 'bhatta':

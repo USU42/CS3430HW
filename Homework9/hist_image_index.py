@@ -54,11 +54,13 @@ def hist_index_img(imgp, color_space, bin_size=8):
   img = cv2.imread(imgp)
   if (color_space is 'rgb'):
     input = cv2.calcHist([img], [0, 1, 2], None, [bin_size, bin_size, bin_size], [0, 256, 0, 256, 0, 256])
+    norm_hist = cv2.normalize(input, input).flatten()
+    HIST_INDEX[imgp] = norm_hist
   elif (color_space is 'hsv'):
     hsvImage = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     input = cv2.calcHist([hsvImage], [0, 1, 2], None, [bin_size, bin_size, bin_size], [0, 256, 0, 256, 0, 256])
-  norm_hist = cv2.normalize(input, input).flatten()
-  HIST_INDEX[imgp] = norm_hist
+    norm_hist = cv2.normalize(input, input).flatten()
+    HIST_INDEX[imgp] = norm_hist
   pass
 
 def hist_index_img_dir(imgdir, color_space, bin_size):
