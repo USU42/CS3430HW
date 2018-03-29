@@ -88,14 +88,12 @@ def eval_img_nn(fit_fun, wmats, EX, ey):
     count = 0
     acc = 0
     for i in range(len(EX)):
-        if np.array_equal(fit_fun(EX[i], wmats, thresh_flag=True),
-                          ey[i]) == True:
+        if np.array_equal(fit_fun(EX[i], wmats, thresh_flag=True), ey[i]) == True:
             acc += 1
         count += 1
     return float(acc)/count
 
-def find_best_nn(lower_num_iters, upper_num_iters, step, train_fun,
-                 fit_fun, eval_fun, bn, X, y):
+def find_best_nn(lower_num_iters, upper_num_iters, step, train_fun, fit_fun, eval_fun, bn, X, y):
     for numIters in range(lower_num_iters, upper_num_iters, step):
         wmats = train_fun(numIters, X, y, bn)
         acc = eval_fun(fit_fun, wmats, X, y)
@@ -112,7 +110,6 @@ def pickle_nn(fp, wmats):
 def unpickle_nn(fp):
     ## your code
     pickle.load(open(fp, "wb"))
-
 
 
 

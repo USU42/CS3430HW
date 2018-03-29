@@ -20,7 +20,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="satyamitra_numbers.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="satyamitra_numbers.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/satyamitra_numbers.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-675">
@@ -44,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="img_ann.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="img_ann.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/img_ann.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="113" column="27" selection-start-line="113" selection-start-column="27" selection-end-line="113" selection-end-column="27" />
+            <state relative-caret-position="1695">
+              <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
               <folding>
                 <element signature="e#221#239#0" expanded="true" />
               </folding>
@@ -68,7 +68,7 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="337" />
+    <option name="x" value="216" />
     <option name="y" value="23" />
     <option name="width" value="1400" />
     <option name="height" value="784" />
@@ -342,7 +342,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="337" y="23" width="1400" height="784" extended-state="0" />
+    <frame x="216" y="23" width="1400" height="784" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24945612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -350,7 +350,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32658958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2716763" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2716763" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32658958" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -380,12 +380,12 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/satyamitra_numbers.py">
+    <entry file="file://$PROJECT_DIR$/img_ann.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-675">
-          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+        <state relative-caret-position="1695">
+          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
           <folding>
-            <element signature="e#510#528#0" expanded="true" />
+            <element signature="e#221#239#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -400,12 +400,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/img_ann.py">
+    <entry file="file://$PROJECT_DIR$/satyamitra_numbers.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="266">
-          <caret line="113" column="27" selection-start-line="113" selection-start-column="27" selection-end-line="113" selection-end-column="27" />
+        <state relative-caret-position="-675">
+          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
           <folding>
-            <element signature="e#221#239#0" expanded="true" />
+            <element signature="e#510#528#0" expanded="true" />
           </folding>
         </state>
       </provider>
