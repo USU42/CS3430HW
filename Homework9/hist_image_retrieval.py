@@ -36,6 +36,7 @@ bin_size = int(args['bin'])
 inhist = None
 # normalize and flatten the inhist into a feature vector
 inhist_vec = None
+inhist_path = args['imgpath']
 
 # get the similarity metric string from the command line parameter.
 hist_sim = args['sim']
@@ -78,16 +79,20 @@ def compute_hist_sim(inhist_vec, hist_index, topn=3):
 
   if hist_sim == 'correl':
     for imgp in hist_index:
-      totalList.append((imgp, hist_correl_sim(inhist_vec, hist_index[imgp])))
+        if inhist_path != imgp: #checks that the image isn't being compared to itself
+            totalList.append((imgp, hist_correl_sim(inhist_vec, hist_index[imgp])))
   elif hist_sim == 'chisqr':
     for imgp in hist_index:
-      totalList.append((imgp, hist_chisqr_sim(inhist_vec, hist_index[imgp])))
+        if inhist_path != imgp: #checks that the image isn't being compared to itself
+            totalList.append((imgp, hist_chisqr_sim(inhist_vec, hist_index[imgp])))
   elif hist_sim == 'inter':
     for imgp in hist_index:
-      totalList.append((imgp, hist_intersect_sim(inhist_vec, hist_index[imgp])))
+        if inhist_path != imgp: #checks that the image isn't being compared to itself
+            totalList.append((imgp, hist_intersect_sim(inhist_vec, hist_index[imgp])))
   elif hist_sim == 'bhatta':
     for imgp in hist_index:
-      totalList.append((imgp, hist_bhatta_sim(inhist_vec, hist_index[imgp])))
+        if inhist_path != imgp: #checks that the image isn't being compared to itself
+            totalList.append((imgp, hist_bhatta_sim(inhist_vec, hist_index[imgp])))
 
   totalList.sort(reverse=True, key=lambda x: x[1])
   for x in range(topn):
@@ -98,18 +103,26 @@ def compute_hist_sim(inhist_vec, hist_index, topn=3):
 def show_images(input_image, match_list):
   # show 4 images in matplotlib figures
 
-  orig = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
-  top1 = cv2.cvtColor(cv2.imread(match_list[0][0]), cv2.COLOR_BGR2RGB)
-  top2 = cv2.cvtColor(cv2.imread(match_list[1][0]), cv2.COLOR_BGR2RGB)
-  top3 = cv2.cvtColor(cv2.imread(match_list[2][0]), cv2.COLOR_BGR2RGB)
+  if (args['clr'] == 'rgb'):
+    orig = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
+    top1 = cv2.cvtColor(cv2.imread(match_list[0][0]), cv2.COLOR_BGR2RGB)
+    top2 = cv2.cvtColor(cv2.imread(match_list[1][0]), cv2.COLOR_BGR2RGB)
+    top3 = cv2.cvtColor(cv2.imread(match_list[2][0]), cv2.COLOR_BGR2RGB)
 
-  path1 = os.path.basename(match_list[0][0])
-  path2 = os.path.basename(match_list[1][0])
-  path3 = os.path.basename(match_list[2][0])
+  if (args['clr'] == 'hsv'):
+    orig = input_image
+    top1 = match_list[0][0]
+    top2 = match_list[1][0]
+    top3 = match_list[2][0]
 
-  name1 = 'Matched image 1: ' + str(path1) + 'Sim = ' + str(match_list[0][1])
-  name2 = 'Matched image 2: ' + str(path2) + 'Sim = ' + str(match_list[1][1])
-  name3 = 'Matched image 3: ' + str(path3) + 'Sim = ' + str(match_list[2][1])
+
+  imgName1 = os.path.basename(match_list[0][0])
+  imgName2 = os.path.basename(match_list[1][0])
+  imgName3 = os.path.basename(match_list[2][0])
+
+  name1 = 'Matched image 1: ' + str(imgName1) + 'Sim = ' + str(match_list[0][1])
+  name2 = 'Matched image 2: ' + str(imgName2) + 'Sim = ' + str(match_list[1][1])
+  name3 = 'Matched image 3: ' + str(imgName3) + 'Sim = ' + str(match_list[2][1])
 
   origPlt = plt.figure(1)
   origPlt.suptitle('Input image')
