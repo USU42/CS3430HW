@@ -1,11 +1,15 @@
 #!/usr/bin/python
 
+from __future__ import division
+import __future__
 import argparse
 import cv2
 import sys
 import os
-import _pickle as pickle
-import matplotlib.pyplot as plt
+# import _pickle as pickle
+# import matplotlib.pyplot as plt
+import cPickle as pickle
+from matplotlib import pyplot as plt
 from os.path import basename
 
 #######################################################################################################
@@ -116,13 +120,13 @@ def show_images(input_image, match_list):
     top3 = match_list[2][0]
 
 
-  imgName1 = os.path.basename(match_list[0][0])
-  imgName2 = os.path.basename(match_list[1][0])
-  imgName3 = os.path.basename(match_list[2][0])
+  imgName1 = basename(match_list[0][0])
+  imgName2 = basename(match_list[1][0])
+  imgName3 = basename(match_list[2][0])
 
-  name1 = 'Matched image 1: ' + str(imgName1) + 'Sim = ' + str(match_list[0][1])
-  name2 = 'Matched image 2: ' + str(imgName2) + 'Sim = ' + str(match_list[1][1])
-  name3 = 'Matched image 3: ' + str(imgName3) + 'Sim = ' + str(match_list[2][1])
+  name1 = 'Matched image 1: ' + str(imgName1) + ' Sim = ' + str(match_list[0][1])
+  name2 = 'Matched image 2: ' + str(imgName2) + ' Sim = ' + str(match_list[1][1])
+  name3 = 'Matched image 3: ' + str(imgName3) + ' Sim = ' + str(match_list[2][1])
 
   origPlt = plt.figure(1)
   origPlt.suptitle('Input image')
