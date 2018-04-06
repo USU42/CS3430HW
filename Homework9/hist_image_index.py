@@ -11,7 +11,7 @@ import cPickle as pickle
 
 #####################################################################################
 # module: hist_image_index.py
-# author:  your name and A-number
+# author:  Kelsye Anderson A02093326
 # description: persistent image histogram indexer
 # to run:
 #
