@@ -88,7 +88,7 @@ def plot_rbst_balance_probs(num_nodes_start, num_nodes_end, num_trees):
     plt.xlabel('Num of nodes in random bst')
     plt.ylabel('Balance probability')
     plt.grid(True)
-    plt.rcParams['figure.facecolor'] = 'grey'
+    graph.patch.set_facecolor('xkcd:grey')
 
     plt.show()
     pass
