@@ -37,7 +37,16 @@ def compute_model_accuracy(predictions, ground_truth):
     return (correct / total) * 100
 
 def run_model(model, flowers):
-    pass
+    ans = []
+    loop = flowers[model]
+    for x in loop:
+        if model[something] == 'setosa':
+            ans.append(compute_model_accuracy(x, is_setosa))
+        elif model[something] == 'virginica':
+            ans.append(compute_model_accuracy(x, is_virginica))
+        elif model[something] == 'versicolor':
+            ans.append(compute_model_accuracy(x, is_versicolor))
+    return ans
     
 def learn_best_th_model_for(flower_name, flowers, bool_index):
     assert len(flowers) == len(bool_index)
@@ -74,6 +83,12 @@ def learn_best_th_model_for(flower_name, flowers, bool_index):
     return (best_fn, best_th, best_reverse, best_acc)
             
 def leave_one_out_cross_validation(flower_name, flowers):
+    if flower_name == 'setosa':
+        bestSet = learn_best_th_model_for(flower_name, flowers, is_setosa)
+    elif flower_name == 'virginica':
+        bestVir = learn_best_th_model_for(flower_name, flowers, is_virginica)
+    elif flower_name == 'versicolor':
+        bestVer = learn_best_th_model_for(flower_name, flowers, is_versicolor)
     pass
 
 # ---------------- UNIT TESTS ------------------------
