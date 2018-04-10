@@ -38,14 +38,17 @@ def compute_model_accuracy(predictions, ground_truth):
 
 def run_model(model, flowers):
     ans = []
-    loop = flowers[model]
-    for x in loop:
-        if model[something] == 'setosa':
-            ans.append(compute_model_accuracy(x, is_setosa))
-        elif model[something] == 'virginica':
-            ans.append(compute_model_accuracy(x, is_virginica))
-        elif model[something] == 'versicolor':
-            ans.append(compute_model_accuracy(x, is_versicolor))
+    for feature in flowers[:,model[0]]:
+        if model[2] == False:
+            if feature >= model[1]:
+                ans.append(True)
+            else:
+                ans.append(False)
+        else:
+            if feature <= model[1]:
+                ans.append(True)
+            else:
+                ans.append(False)
     return ans
     
 def learn_best_th_model_for(flower_name, flowers, bool_index):
@@ -53,22 +56,16 @@ def learn_best_th_model_for(flower_name, flowers, bool_index):
     best_fn = 0
     best_th = 0
     best_reverse = False
-    best_acc = -1
-    if flower_name == 'setosa':
-        predictList = flowers[bool_index]
-        reverseList = flowers[~bool_index]
-        per = compute_model_accuracy(prediction, )
-    if flower_name == 'virginica':
-        per = compute_model_accuracy(prediction, )
-    if flower_name == 'versicolor':
-        per = compute_model_accuracy(prediction, )
-    for fn in rqange(reverseList.shape[1]):
-        possThresholdList = reverseList[:,fn]
+    best_acc = -1.0
+    predictList = flowers[bool_index]
+    for fn in range(predictList.shape(1)):
+        possThresholdList = predictList[:,fn]
         for possThresh in possThresholdList:
-            featVal = [:,fn]
+            featVal = flowers[:,fn]
             predict = (featVal > pt)
-            acc = (predict == is_virginica).mean()
-            rv_acc = (predict == ~is_virginica).mean()
+            acc = (predict == bool_index).mean()
+            rv_acc = (predict == ~bool_index).mean()
+            
             if rev.acc > acc:
                 reverse = True
                 acc = rev_acc
@@ -84,11 +81,23 @@ def learn_best_th_model_for(flower_name, flowers, bool_index):
             
 def leave_one_out_cross_validation(flower_name, flowers):
     if flower_name == 'setosa':
-        bestSet = learn_best_th_model_for(flower_name, flowers, is_setosa)
+        mostList = flowers[0:49]
+        bestSet = learn_best_th_model_for(flower_name, mostList, is_setosa)
+        base_case = [True] * 100
+        boolList = run_model(bestSet, mostList)
+        compute_model_accuracy(np.array(boolList), np.array(base_case))  
     elif flower_name == 'virginica':
-        bestVir = learn_best_th_model_for(flower_name, flowers, is_virginica)
+        mostList = flowers[50:99]
+        bestSet = learn_best_th_model_for(flower_name, mostList, is_setosa)
+        base_case = [True] * 100
+        boolList = run_model(bestSet, mostList)
+        compute_model_accuracy(np.array(boolList), np.array(base_case))
     elif flower_name == 'versicolor':
-        bestVer = learn_best_th_model_for(flower_name, flowers, is_versicolor)
+        mostList = flowers[100:149]
+        bestSet = learn_best_th_model_for(flower_name, mostList, is_setosa)
+        base_case = [True] * 100
+        boolList = run_model(bestSet, mostList)
+        compute_model_accuracy(np.array(boolList), np.array(base_case))
     pass
 
 # ---------------- UNIT TESTS ------------------------
