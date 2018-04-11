@@ -62,20 +62,20 @@ def learn_best_th_model_for(flower_name, flowers, bool_index):
         possThresholdList = predictList[:,fn]
         for possThresh in possThresholdList:
             featVal = flowers[:,fn]
-            predict = (featVal > pt)
+            predict = (featVal > possThresh)
             acc = (predict == bool_index).mean()
             rv_acc = (predict == ~bool_index).mean()
             
-            if rev.acc > acc:
+            if rv_acc > acc:
                 reverse = True
-                acc = rev_acc
+                acc = rv_acc
             else:
                 reverse = False
 
             if acc > best_acc:
                 best_acc = acc
                 best_fn = fn
-                best_th = pt
+                best_th = possThresh
                 best_reverse = reverse
     return (best_fn, best_th, best_reverse, best_acc)
             
