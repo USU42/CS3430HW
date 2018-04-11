@@ -3,11 +3,13 @@
 '''
 ========================================
 module: random_audio_forests.py
-Your name
-Your A-number
+Kelsye Anderson
+A02093326
 ========================================
 '''
 
+from __future__ import division
+import __future__
 import numpy as np
 import scipy
 import random
@@ -25,7 +27,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 
 
 ## change the base_dir as needed
-base_dir = '/home/vladimir/audio_data/'
+base_dir = '/home/Desktop/Homework/CS3430HW/Homework12/audio_data/'
 sub_dir = ['beefv','cricketfv','noisefv']
 
 ## Reading the files and creating feature and response object
