@@ -17,6 +17,7 @@ import os
 import glob
 import argparse
 
+from sklearn import tree
 from sklearn.cross_validation import train_test_split
 from sklearn import metrics
 from sklearn.cross_validation import KFold
@@ -46,15 +47,23 @@ def read_audio_data(base_dir):
 
 def train_test_split_eval_dtr(dtr, data, target, test_size=0.4):
     ## your code
-    train_data, test_data, train_target, test_targe = \
-                train_test_spilt(data, target, test_size = test_size, random_state = randint(0, 1000))
-    DecisionTreeClassifier()
-    print('train data\'s size %d' % train_data.shape[0])
-    print('train target: %s' % str(train_target))
-    print('test target: %d' % test_data.shape[0])
-    print('test target: %s' % str(test_target))
-    dt = classifier.fit(train_data, train_target)
-    print(sum(dt.predict(test_data) == test_target)/float(len(test_target)))
+    train_data, test_data, train_target, test_target = \
+                train_test_split(data, target,
+                                 test_size = test_size,
+                                 random_state = random.randint(0, 1000))
+    dtr = dtr.fit(train_data, train_target)
+    clf_expected = test_target
+    clf_predicted = dtr.predict(test_data)
+    correct = 0
+    for x in range(len(clf_expected)):
+        if clf_expected[x] == clf_predicted[x]:
+            correct += 1
+    acc = correct / len(clf_expected)
+    print('DTR accuracy: %f\n' % acc)
+    print('Classification report for decision tree %s:\n%s\n'
+          %(dtr, classification_report(clf_expected, clf_predicted)))
+    print('Confusion matrix: \n%s' % confusion_matrix(clf_expected,
+                                                      clf_predicted))
 
 def train_test_split_eval_rf(rf, data, target, test_size=0.4):
     ## your code
@@ -70,4 +79,6 @@ def train_test_split_rf_range_eval(lower_tree_bound, upper_tree_bound, data, tar
     pass
 
    
-
+data, target = read_audio_data(base_dir)
+dtr = tree.DecisionTreeClassifier(random_state = random.randint(0, 100))
+train_test_split_eval_dtr(dtr, data, target)
