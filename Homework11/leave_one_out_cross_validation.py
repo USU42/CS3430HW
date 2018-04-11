@@ -32,9 +32,12 @@ is_virginica  = (flower_names == 'virginica')
 is_versicolor = (flower_names == 'versicolor')
 
 def compute_model_accuracy(predictions, ground_truth):
-    correct = np.sum(predictions == ground_truth)
+    correct = 0
+    for x in range(len(predictions)):
+        if predictions[x] == ground_truth[x]:
+            correct += 1
     total = len(ground_truth)
-    return (correct / total) * 100
+    return (correct / total)
 
 def run_model(model, flowers):
     ans = []
@@ -58,7 +61,7 @@ def learn_best_th_model_for(flower_name, flowers, bool_index):
     best_reverse = False
     best_acc = -1.0
     predictList = flowers[bool_index]
-    for fn in range(predictList.shape(1)):
+    for fn in range(predictList.shape[1]):
         possThresholdList = predictList[:,fn]
         for possThresh in possThresholdList:
             featVal = flowers[:,fn]
@@ -80,25 +83,31 @@ def learn_best_th_model_for(flower_name, flowers, bool_index):
     return (best_fn, best_th, best_reverse, best_acc)
             
 def leave_one_out_cross_validation(flower_name, flowers):
+    accuracy = 0
+    boolList = []
+    tempList = list(flowers)
+    for x in range(150):
+        mostList = tempList[:x] + tempList[x+1:]
+        mostList = np.array(mostList)
+        if flower_name == 'setosa':
+            inputBaseCase = list(is_setosa[:x]) + list(is_setosa[x+1:])
+        elif flower_name == 'virginica':
+            inputBaseCase = list(is_virginica[:x]) + list(is_virginica[x+1:])
+        elif flower_name == 'versicolor':
+            inputBaseCase = list(is_versicolor[:x]) + list(is_versicolor[x+1:])
+        bestSet = learn_best_th_model_for(flower_name, mostList, np.array(inputBaseCase))
+        temp = run_model(bestSet, flowers)
+        boolList.append(temp[x])
+
+    output = 0.0
     if flower_name == 'setosa':
-        mostList = flowers[0:49]
-        bestSet = learn_best_th_model_for(flower_name, mostList, is_setosa)
-        base_case = [True] * 100
-        boolList = run_model(bestSet, mostList)
-        compute_model_accuracy(np.array(boolList), np.array(base_case))  
+        output = compute_model_accuracy(np.array(boolList), is_setosa)
     elif flower_name == 'virginica':
-        mostList = flowers[50:99]
-        bestSet = learn_best_th_model_for(flower_name, mostList, is_setosa)
-        base_case = [True] * 100
-        boolList = run_model(bestSet, mostList)
-        compute_model_accuracy(np.array(boolList), np.array(base_case))
+        output = compute_model_accuracy(np.array(boolList), is_virginica)
     elif flower_name == 'versicolor':
-        mostList = flowers[100:149]
-        bestSet = learn_best_th_model_for(flower_name, mostList, is_setosa)
-        base_case = [True] * 100
-        boolList = run_model(bestSet, mostList)
-        compute_model_accuracy(np.array(boolList), np.array(base_case))
-    pass
+        output= compute_model_accuracy(np.array(boolList), is_versicolor)
+
+    return output
 
 # ---------------- UNIT TESTS ------------------------
 
