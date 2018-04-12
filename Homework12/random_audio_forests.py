@@ -99,8 +99,4 @@ def train_test_split_rf_range_eval(lower_tree_bound, upper_tree_bound, data, tar
         rf = RandomForestClassifier(n_estimators = x, random_state = random.randint(0, 1000))
         print('\nStarting with train_test_split procedure')
         train_test_split_eval_rf(rf, data, target)
-        
-   
-data, target = read_audio_data(base_dir)
-train_test_split_rf_range_eval(10, 50, data, target)
-
+ 
