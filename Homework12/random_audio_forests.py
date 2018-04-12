@@ -67,12 +67,30 @@ def train_test_split_eval_dtr(dtr, data, target, test_size=0.4):
 
 def train_test_split_eval_rf(rf, data, target, test_size=0.4):
     ## your code
-    pass
+    print('# of trees in random forest: %i' % rf.n_estimators)
+    train_data, test_data, train_target, test_target = \
+                train_test_split(data, target,
+                                 test_size = test_size,
+                                 random_state = random.randint(0, 1000))
+    rf = rf.fit(train_data, train_target)
+    clf_expected = test_target
+    clf_predicted = rf.predict(test_data)
+    correct = 0
+    for x in range(len(clf_expected)):
+        if clf_expected[x] == clf_predicted[x]:
+            correct += 1
+    acc = correct / len(clf_expected)
+    print('DTR accuracy: %f\n' % acc)
+    print('Classification report for decision tree %s:\n%s\n'
+          %(rf, classification_report(clf_expected, clf_predicted)))
+    print('Confusion matrix: \n%s' % confusion_matrix(clf_expected,
+                                                      clf_predicted))
 
 def train_test_split_dtr_range_eval(n, data, target):
     ## your code
-    
-    pass
+    for x in range(n):
+        dtr = tree.DecisionTreeClassifier(random_state = random.randint(0, 100))
+        train_test_split_eval_dtr(dtr, data, target)
 
 def train_test_split_rf_range_eval(lower_tree_bound, upper_tree_bound, data, target):
     ## your code
@@ -80,5 +98,5 @@ def train_test_split_rf_range_eval(lower_tree_bound, upper_tree_bound, data, tar
 
    
 data, target = read_audio_data(base_dir)
-dtr = tree.DecisionTreeClassifier(random_state = random.randint(0, 100))
-train_test_split_eval_dtr(dtr, data, target)
+train_test_split_dtr_range_eval(5, data, target)
+
