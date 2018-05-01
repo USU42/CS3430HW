@@ -15,20 +15,37 @@ from sklearn.ensemble import RandomForestClassifier
 
 #################################################
 # module: dtr_rf.py
-# YOUR NAME
-# YOUR A-NUMBER
+# Kelsye Anderson
+# A02093326
 ##################################################
 
 ## ================== LOADING DATA =======================
 
 ## Change the value of BEE_DIR accordingly
 BEE = []
-BEE_DIR = 'CS3430/S18/coding_exam_3/'
+BEE_DIR = '/Desktop/Homework/CS3430HW/Exam3'
 TARGET = []
 DATA = []
 
+def generate_file_names(fnpat, rootdir):
+  # your code
+  for path, subdir, filelist in os.walk(rootdir):
+      for name in filelist:
+          if not name.startswith('.') and not re.match(fnpat, name) is None:
+              yield os.path.join(path, name)
+          for dir in subdir:
+              generate_file_names(fnpat, dir)
+
 def load_data(imgdir):
   ## your code
+  bin_size = 8
+  for imgp in generate_file_names(r'.+\.(jpg|png|JPG)', imgdir):
+    print('indexing ' + imgp)
+    img = cv2.open(imgp)
+    input = cv2.calcHist([img], [0, 1, 2], None, [bin_size, bin_size, bin_size], [0, 256, 0, 256, 0, 256])
+    norm_hist = cv2.normalize(input, input).flatten()
+    HIST_INDEX[imgp] = norm_hist
+    print(imgp + ' indexed')
   pass
 
 ## ===================== DECISION TREES ==============================
