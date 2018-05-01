@@ -1,20 +1,21 @@
 #!/usr/bin/python
-
 from __future__ import division
 import __future__
+import sys
+sys.path.append('/usr/local/lib/python2.7/site-packages')
 import os
 import argparse
 import cv2
-import re
 import sys
+import re
 import random
 import numpy as np
-# from sklearn import tree, metrics
-# from sklearn.model_selection import train_test_split
-# from sklearn.model_selection import cross_val_predict
-# import matplotlib.pyplot as plt
-# from sklearn.metrics import confusion_matrix
-# from sklearn.ensemble import RandomForestClassifier
+from sklearn import tree, metrics
+from sklearn.cross_validation import train_test_split
+from sklearn.cross_validation import cross_val_predict
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+from sklearn.ensemble import RandomForestClassifier
 
 #################################################
 # module: dtr_rf.py
@@ -26,7 +27,7 @@ import numpy as np
 
 ## Change the value of BEE_DIR accordingly
 BEE = []
-BEE_DIR = '/Desktop/Github/CS3430HW/Exam3/'
+BEE_DIR = '/Desktop/Homework/CS3430HW/Exam3'
 TARGET = []
 DATA = []
 
@@ -55,8 +56,8 @@ def load_data(imgdir):
 
   print('Target size:', len(TARGET))
   print('Data size:', len(DATA))
-  # print('data at 999', DATA[999])
-  # print('target at 999', TARGET[999])
+  print('data at 999', DATA[999])
+  print('target at 999', TARGET[999])
   pass
 
 ## ===================== DECISION TREES ==============================
@@ -119,4 +120,4 @@ def plot_rf_mv_stats(rf_mv_stats, num_trees_lower, num_trees_upper):
   
 
     
-load_data(BEE_DIR)
+
