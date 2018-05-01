@@ -14,7 +14,7 @@ from sklearn import tree, metrics
 from sklearn.cross_validation import train_test_split
 from sklearn.cross_validation import cross_val_predict
 import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix, classification_report
 from sklearn.ensemble import RandomForestClassifier
 
 #################################################
@@ -111,14 +111,62 @@ def plot_dtr_train_test_split(output, n, test_size):
 
 def run_dtr_cross_validation(data, target, test_size):
   ## your code
-  pass
+  output = {}
 
-def plot_dtr_cross_validation(nf_acc_list, nf_lower, nf_upper, test_size):
+  dtr = tree.DecisionTreeClassifier(random_state = random.randint(0, 100))
+  train_data, test_data, train_target, test_target = \
+              train_test_split(data, target,
+                                test_size = test_size,
+                                random_state = random.randint(0, 1000))
+  dtr = dtr.fit(train_data, train_target)
+  clf_expected = test_target
+  clf_predicted = dtr.predict(test_data)
+  
+  for cv in xrange(5, 21):
+    cross_val = cross_val_predict(dtr, DATA,
+                                  TARGET, cv=cv)
+    acc = sum(cross_val==target)/float(len(target))
+    output[cv] = acc
+    print('Num folders %i: accuracy= %f' %(cv, acc))
+    print('---------------------------------------')
+  return output
+
+def plot_dtr_cross_validation(output, nf_lower, nf_upper, test_size):
   ## your code
+  graph = plt.figure(2)
+  graph.suptitle('DTR Cross Validation: Test size = %f' % test_size)
+
+  probs = []
+  for x in output.keys():
+    probs.append(output[x])
+
+  num_nodes_start = nf_lower
+  num_nodes_end = nf_upper
+  plt.plot(output.keys(), probs, 'go')
+  plt.xticks(np.arange(num_nodes_start, num_nodes_end, 1.0))
+  plt.yticks(np.arange(-0.1, 1.1, .1))
+  plt.xlabel('Expiriment label')
+  plt.ylabel('Accuracy')
+  plt.grid(True)
+
+  plt.show()
+  
   pass
 
 def compute_cr_cm(data, target, test_size):
   ## your code
+  dtr = tree.DecisionTreeClassifier(random_state = random.randint(0, 100))
+  train_data, test_data, train_target, test_target = \
+                train_test_split(data, target,
+                                 test_size = test_size,
+                                 random_state = random.randint(0, 1000))
+  dtr = dtr.fit(train_data, train_target)
+  clf_expected = test_target
+  clf_predicted = dtr.predict(test_data)
+  print('Classification report for decision tree %s:\n%s\n'
+        %(dtr, classification_report(clf_expected, clf_predicted)))
+  print('Confusion matrix: \n%s' % confusion_matrix(clf_expected,
+                                                    clf_predicted))
   pass
 
 ## ================= RANDOM FORESTS ==============================
@@ -159,5 +207,5 @@ def plot_rf_mv_stats(rf_mv_stats, num_trees_lower, num_trees_upper):
   
 
 load_data(BEE_DIR)
-output = run_dtr_train_test_split(DATA, TARGET, 10, .3)
+#output = run_dtr_train_test_split(DATA, TARGET, 10, .3)
 
