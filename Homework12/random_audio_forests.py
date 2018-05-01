@@ -95,7 +95,7 @@ def train_test_split_dtr_range_eval(n, data, target):
 
 def train_test_split_rf_range_eval(lower_tree_bound, upper_tree_bound, data, target):
     ## your code
-    for x in range(lower_tree_bound, upper_tree_bound + 1,10):
+    for x in range(lower_tree_bound, upper_tree_bound + 1 ,10):
         rf = RandomForestClassifier(n_estimators = x, random_state = random.randint(0, 1000))
         print('\nStarting with train_test_split procedure')
         train_test_split_eval_rf(rf, data, target)
