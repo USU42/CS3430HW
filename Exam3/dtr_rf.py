@@ -10,12 +10,12 @@ import sys
 import re
 import random
 import numpy as np
-# from sklearn import tree, metrics
-# from sklearn.cross_validation import train_test_split
-# from sklearn.cross_validation import cross_val_predict
-# import matplotlib.pyplot as plt
-# from sklearn.metrics import confusion_matrix
-# from sklearn.ensemble import RandomForestClassifier
+from sklearn import tree, metrics
+from sklearn.cross_validation import train_test_split
+from sklearn.cross_validation import cross_val_predict
+import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix
+from sklearn.ensemble import RandomForestClassifier
 
 #################################################
 # module: dtr_rf.py
@@ -53,8 +53,8 @@ def load_data(imgdir):
     else:
       TARGET.append(0)
 
-  random.shuffle(TARGET)
-  random.shuffle(DATA)
+  #random.shuffle(TARGET)
+  #random.shuffle(DATA)
   # print('Target size:', len(TARGET))
   # print('Data size:', len(DATA))
   # print('data at 999', DATA[999])
@@ -65,10 +65,48 @@ def load_data(imgdir):
 
 def run_dtr_train_test_split(data, target, n, test_size):
   ## your code
+  output = {}
+  for i in range(n):
+    dtr = tree.DecisionTreeClassifier(random_state = random.randint(0, 100))
+    train_data, test_data, train_target, test_target = \
+                train_test_split(data, target,
+                                 test_size = test_size,
+                                 random_state = random.randint(0, 1000))
+    dtr = dtr.fit(train_data, train_target)
+    clf_expected = test_target
+    clf_predicted = dtr.predict(test_data)
+    correct = 0
+    for x in range(len(clf_expected)):
+        if clf_expected[x] == clf_predicted[x]:
+            correct += 1
+    acc = correct / len(clf_expected)
+    print('---------------------------------------')
+    print('Train/Test run %i: accuracy= %f' %(i, acc))
+    
+    output[i] = acc
+  print('---------------------------------------')
+  return output
   pass
 
-def plot_dtr_train_test_split(acc_pred_list, n, test_size):
+def plot_dtr_train_test_split(output, n, test_size):
   ## your code
+  graph = plt.figure(1)
+  graph.suptitle('DTR Train/Test split; Test size = %f' % test_size)
+
+  probs = []
+  for x in output.keys():
+    probs.append(output[x])
+
+  num_nodes_start = 0
+  num_nodes_end = n
+  plt.plot(output.keys(), probs, 'go')
+  plt.xticks(np.arange(num_nodes_start, num_nodes_end - 1, 1.0))
+  plt.yticks(np.arange(-0.1, 1.1, .1))
+  plt.xlabel('Expiriment label')
+  plt.ylabel('Accuracy')
+  plt.grid(True)
+
+  plt.show()
   pass
 
 def run_dtr_cross_validation(data, target, test_size):
@@ -121,4 +159,5 @@ def plot_rf_mv_stats(rf_mv_stats, num_trees_lower, num_trees_upper):
   
 
 load_data(BEE_DIR)
+output = run_dtr_train_test_split(DATA, TARGET, 10, .3)
 
