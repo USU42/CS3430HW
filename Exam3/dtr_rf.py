@@ -1,17 +1,20 @@
 #!/usr/bin/python
 
+from __future__ import division
+import __future__
 import os
 import argparse
 import cv2
+import re
 import sys
 import random
 import numpy as np
-from sklearn import tree, metrics
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import cross_val_predict
-import matplotlib.pyplot as plt
-from sklearn.metrics import confusion_matrix
-from sklearn.ensemble import RandomForestClassifier
+# from sklearn import tree, metrics
+# from sklearn.model_selection import train_test_split
+# from sklearn.model_selection import cross_val_predict
+# import matplotlib.pyplot as plt
+# from sklearn.metrics import confusion_matrix
+# from sklearn.ensemble import RandomForestClassifier
 
 #################################################
 # module: dtr_rf.py
@@ -23,29 +26,37 @@ from sklearn.ensemble import RandomForestClassifier
 
 ## Change the value of BEE_DIR accordingly
 BEE = []
-BEE_DIR = '/Desktop/Homework/CS3430HW/Exam3'
+BEE_DIR = '/Desktop/Github/CS3430HW/Exam3/'
 TARGET = []
 DATA = []
 
 def generate_file_names(fnpat, rootdir):
   # your code
-  for path, subdir, filelist in os.walk(rootdir):
-      for name in filelist:
-          if not name.startswith('.') and not re.match(fnpat, name) is None:
-              yield os.path.join(path, name)
-          for dir in subdir:
-              generate_file_names(fnpat, dir)
+  for path, subdir, filelist in os.walk('.'):
+    for name in filelist:
+        if not name.startswith('.') and not re.match(fnpat, name) is None:
+            yield os.path.join(path, name)
+        for dir in subdir:
+            generate_file_names(fnpat, dir)
 
 def load_data(imgdir):
   ## your code
   bin_size = 8
+  i = 0
   for imgp in generate_file_names(r'.+\.(jpg|png|JPG)', imgdir):
-    print('indexing ' + imgp)
-    img = cv2.open(imgp)
+    img = cv2.imread(imgp)
     input = cv2.calcHist([img], [0, 1, 2], None, [bin_size, bin_size, bin_size], [0, 256, 0, 256, 0, 256])
     norm_hist = cv2.normalize(input, input).flatten()
-    HIST_INDEX[imgp] = norm_hist
-    print(imgp + ' indexed')
+    DATA.append(norm_hist)
+    if(imgp[:9] == './yes_bee'):
+      TARGET.append(1)
+    else:
+      TARGET.append(0)
+
+  print('Target size:', len(TARGET))
+  print('Data size:', len(DATA))
+  # print('data at 999', DATA[999])
+  # print('target at 999', TARGET[999])
   pass
 
 ## ===================== DECISION TREES ==============================
@@ -108,4 +119,4 @@ def plot_rf_mv_stats(rf_mv_stats, num_trees_lower, num_trees_upper):
   
 
     
-
+load_data(BEE_DIR)

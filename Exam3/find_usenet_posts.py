@@ -2,18 +2,20 @@
 
 ##############################################################
 # module: find_usenet_posts.py
-# YOUR NAME
-# YOUR A-NUMBER
+# Kelsye Anderson
+# A02093326
 # bugs to vladimir dot kulyukin at usu dot edu
 ###############################################################
 
+from __future__ import division
+import __future__
 import os
 import sys
-import sklearn.datasets
-import scipy as sp
-from sklearn.cluster import KMeans
-import nltk.stem
-from sklearn.feature_extraction.text import TfidfVectorizer
+# import sklearn.datasets
+# import scipy as sp
+# from sklearn.cluster import KMeans
+# import nltk.stem
+# from sklearn.feature_extraction.text import TfidfVectorizer
 
 ## Get the USENET POSTS
 usenet_posts = sklearn.datasets.fetch_20newsgroups()
