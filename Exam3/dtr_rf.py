@@ -174,12 +174,10 @@ def compute_cr_cm(data, target, test_size):
 def create_rfs(n, num_trees, data, target):
   ## your code
   output = []
+  possibleTS = [0.2, 0.25, 0.3, 0.35, 0.4]
   for x in range(n):
-    rf = RandomForestClassifier(n_estimators = x, random_state = random.randint(0, 1000)
-    possibleTS = [0.2, 0.25, 0.3, 0.35, 0.4]
-    rand = random.nextInt(possibleTS.length)
-    test_size = possibleTS[rand]
-    print('# of trees in random forest: %i' % rf.n_estimators)
+    rf = RandomForestClassifier(n_estimators = num_trees, random_state = random.randint(0, 1000))
+    test_size = random.choice(possibleTS)
     train_data, test_data, train_target, test_target = \
                 train_test_split(data, target,
                                  test_size = test_size,
@@ -192,7 +190,7 @@ def create_rfs(n, num_trees, data, target):
         if clf_expected[x] == clf_predicted[x]:
             correct += 1
     acc = correct / len(clf_expected)
-    ouput.append(rf)
+    output.append(rf)
   return output
 
 def classify_with_rfs_aux(rand_forests, data_item):
