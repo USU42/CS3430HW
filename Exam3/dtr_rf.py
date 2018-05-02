@@ -22,6 +22,10 @@ from sklearn.ensemble import RandomForestClassifier
 # Kelsye Anderson
 # A02093326
 ##################################################
+'''
+For this problem, forests were better than decision trees. My trees were getting an accuracy
+rate of between .45 and .5 accuracy, while my forests were getting between .85 and 1
+'''
 
 ## ================== LOADING DATA =======================
 
@@ -173,25 +177,17 @@ def compute_cr_cm(data, target, test_size):
     
 def create_rfs(n, num_trees, data, target):
   ## your code
-  output = []
-  possibleTS = [0.2, 0.25, 0.3, 0.35, 0.4]
-  for x in range(n):
-    rf = RandomForestClassifier(n_estimators = num_trees, random_state = random.randint(0, 1000))
-    test_size = random.choice(possibleTS)
-    train_data, test_data, train_target, test_target = \
-                train_test_split(data, target,
-                                 test_size = test_size,
-                                 random_state = random.randint(0, 1000))
-    rf = rf.fit(train_data, train_target)
-    clf_expected = test_target
-    clf_predicted = rf.predict(test_data)
-    correct = 0
-    for x in range(len(clf_expected)):
-        if clf_expected[x] == clf_predicted[x]:
-            correct += 1
-    acc = correct / len(clf_expected)
-    output.append(rf)
-  return output
+  random_forests = [ ]
+  test_sizes = (0.20, 0.25, 0.30, 0.35, 0.40)
+  for i in xrange(n):
+      tsize = random.choice(test_sizes)
+      train_data, _, train_target, _ = \
+                  train_test_split(data, target, test_size=tsize,
+                                    random_state=random.randint(0, 1000))
+      clf = RandomForestClassifier(n_estimators=num_trees,
+                                    random_state=random.randint(0, 1000))
+      random_forests.append(clf.fit(train_data, train_target))
+  return random_forests
 
 def classify_with_rfs_aux(rand_forests, data_item):
   ## your code
@@ -199,11 +195,39 @@ def classify_with_rfs_aux(rand_forests, data_item):
 
 def classify_with_rfs(rfs, data, target):
   ## your code
-  pass
+  rand = random.randint(0, len(data)-1)
+  data_item = DATA[rand]
+  tar = target[rand]
+  output = []
+  temp = []
+  for rf in rfs:
+    temp.append(rf.predict(data_item.reshape(1, -1))[0])
+  output.append((temp,tar))
+  return output
 
 def run_rf_mv_experiments(rfs, data, target, n):
   ## your code
-  pass
+  classifyList = []
+  acc = 0
+  
+  for x in range(n):
+    temp = classify_with_rfs(rfs, data, target)
+    classifyList.append(temp)
+  for classify in classifyList:
+    numVotes1 = 0
+    numVotes0 = 0
+    for vote in classify[0][0]:
+      if(vote == 1):
+        numVotes1 += 1
+      else:
+        numVotes0 += 1
+    if(numVotes1 > numVotes0):
+      if(1 == classify[0][1]):
+        acc += 1
+    else:
+      if(0 == classify[0][1]):
+        acc += 1
+  return acc/n
 
 def collect_rf_mv_stats(rfs_list, data, target, n):
   num_trees_acc_list = []
@@ -217,13 +241,39 @@ def collect_rf_mv_stats(rfs_list, data, target, n):
 
 def create_rf_list(ntrees_in_rf, data, target):
   ## your code
-  pass
+  trees = [5,10,15,20,25,30,35,40]
+  output = []
+  for numTrees in trees:
+    output.append((numTrees, create_rfs(ntrees_in_rf, numTrees, data, target,)))
+  return output
 
-def plot_rf_mv_stats(rf_mv_stats, num_trees_lower, num_trees_upper):
+def plot_rf_mv_stats(output, num_trees_lower, num_trees_upper):
   ## your code
+  graph = plt.figure(2)
+  graph.suptitle('Random Forests Majority Vote Stats')
+
+  numTrees = []
+  probs = []
+  for numTree, acc in output:
+    probs.append(acc)
+    numTrees.append(numTree)
+
+  num_nodes_start = num_trees_lower
+  num_nodes_end = num_trees_upper
+  plt.plot(numTrees, probs, 'go')
+  plt.xticks(np.arange(num_nodes_start, num_nodes_end, 1))
+  plt.yticks(np.arange(-0.1, 1.1, .1))
+  plt.xlabel('Expiriment label')
+  plt.ylabel('Accuracy')
+  plt.grid(True)
+
+  plt.show()
   pass
   
 
 load_data(BEE_DIR)
 #output = run_dtr_train_test_split(DATA, TARGET, 10, .3)
+#rfs = create_rfs(5, 10, DATA, TARGET)
+#rf_list = create_rf_list(10, DATA, TARGET)
+#acc_list = collect_rf_mv_stats(rf_list, DATA, TARGET, 50)
 
