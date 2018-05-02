@@ -53,8 +53,8 @@ def load_data(imgdir):
     else:
       TARGET.append(0)
 
-  #random.shuffle(TARGET)
-  #random.shuffle(DATA)
+  random.shuffle(TARGET)
+  random.shuffle(DATA)
   # print('Target size:', len(TARGET))
   # print('Data size:', len(DATA))
   # print('data at 999', DATA[999])
@@ -173,7 +173,27 @@ def compute_cr_cm(data, target, test_size):
     
 def create_rfs(n, num_trees, data, target):
   ## your code
-  pass
+  output = []
+  for x in range(n):
+    rf = RandomForestClassifier(n_estimators = x, random_state = random.randint(0, 1000)
+    possibleTS = [0.2, 0.25, 0.3, 0.35, 0.4]
+    rand = random.nextInt(possibleTS.length)
+    test_size = possibleTS[rand]
+    print('# of trees in random forest: %i' % rf.n_estimators)
+    train_data, test_data, train_target, test_target = \
+                train_test_split(data, target,
+                                 test_size = test_size,
+                                 random_state = random.randint(0, 1000))
+    rf = rf.fit(train_data, train_target)
+    clf_expected = test_target
+    clf_predicted = rf.predict(test_data)
+    correct = 0
+    for x in range(len(clf_expected)):
+        if clf_expected[x] == clf_predicted[x]:
+            correct += 1
+    acc = correct / len(clf_expected)
+    ouput.append(rf)
+  return output
 
 def classify_with_rfs_aux(rand_forests, data_item):
   ## your code
